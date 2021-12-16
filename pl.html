@@ -4,12 +4,12 @@
     <title>900_插件注入</title>
     <link id="css" rel="stylesheet prefetch" href="css/style.css">
     <script>
-            if(document.cookie.indexOf('kex=0') >= 0){
-                document.cookie = 'kex=1';
-                document.location.href = '.';
-            }
-            else
-                document.cookie = 'kex=0';
+            // if(document.cookie.indexOf('kex=0') >= 0){
+            //     document.cookie = 'kex=1';
+            //     document.location.href = '.';
+            // }
+            // else
+            //     document.cookie = 'kex=0';
         var pl_name = getHashParams()['pl'];
         run_PL(pl_name);
 
@@ -33,41 +33,26 @@
             }
             return ans;
         }
-        window.data_PL3 = function(payload){
-        var tmp = new Uint8Array(payload.byteLength);
-        tmp.set(new Uint8Array(payload), 0);
-        var pl = new Uint32Array(tmp);
-        var PL_data = chain.syscall(477, new int64(0, 0), pl.length, 7, 0x41000, -1, 0);
 
-        var buf = new Uint8Array(1);
-        var buf_addr = p.leakval(buf);
-        var old_buf = p.read8(buf_addr.add32(16));
-        var old_sz = p.read4(buf_addr.add32(24));
-        p.write8(buf_addr.add32(16), PL_data);
-
-        p.write4(buf_addr.add32(24), pl.length);
-
-        for(let i = 0; i < pl.length; i++)
-            buf[i] = pl[i];
-        p.write8(buf_addr.add32(16), old_buf);
-        p.write4(buf_addr.add32(24), old_sz);
-      	var pthread = p.malloc(0x10);
-    	chain.call(libKernelBase.add32(OFFSET_lk_pthread_create), pthread, 0x0, PL_data, 0);
-        }
         const sleep = (timeountMS) => new Promise((resolve) => {
-        setTimeout(resolve, timeountMS);
+            setTimeout(resolve, timeountMS);
         });
        
         async function run_PL(pl_name){
             var payload = await getfile(pl_name);
-            window.pl = await new Response(payload).arrayBuffer();
+            pl_pass = await new Response(payload).arrayBuffer();
+            var tmp = new Uint8Array(pl_pass.byteLength);
+            tmp.set(new Uint8Array(payload), 0);
+            window.pl_pass = new Uint32Array(tmp);
         }
 
-       
+        window.parent.msgs.innerHTML="正在执行 漏洞利用";
         once=async function(){
-        await sleep(1500);
+        await sleep(1000);
         poc();
         }
+        window.parent.msgs.innerHTML="执行完成";
+
     </script>
     <script src="./common/int64.js" defer></script>
     <script src="./common/rop.js" defer></script>
@@ -75,9 +60,12 @@
     <script src="./common/webkit.js" defer></script>
 </head>
 <body>
-    <h2 id="msgs" style="min-height:38px;margin-top:10%;font-size: 36px;" >正在执行 漏洞利用</h2>
-    <div style="margin:0px;width=70%;display:inline-block;">
-    </div>
+    <!-- <h2 id="msgs" style="min-height:38px;margin-top:10%;font-size: 36px;" >正在执行 漏洞利用</h2> -->
+<!--     <h4>推荐使用 USB2.0 小容量U盘使用.</h4>
+    <h4> 不推荐 离线缓存使用. </h4> -->
+<!--     <div style="margin:0px;width=70%;display:inline-block;">
+    </div> -->
+
 </body>
 </html>
 
