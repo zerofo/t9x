@@ -13,10 +13,6 @@
 <div style="margin: auto;text-align:center;width:200px; font-size:25px;color:white;background-color: red;"><b id="cached">使用缓存状态:??</b></div>
   
 <script>
-	if(document.cookie.indexOf('kex=0') >= 0)
-    document.location.href = '.';
-else
-    document.cookie = 'kex=0';
 function CacheProgress(e){Percent=(Math.round(e.loaded / e.total * 100));msgs.innerHTML="正在下载离线缓存(如长时间卡进度 请双清重启再试): " + Percent + "%";}
 function CachingDone(){setTimeout(function(){msgs.innerHTML="离线缓存 已成功，即将返回";},100)}
 window.applicationCache.addEventListener("progress",CacheProgress,false);window.applicationCache.oncached=function(e){CachingDone(); setTimeout(function(){window.location.href="./index.html";},1000)};
