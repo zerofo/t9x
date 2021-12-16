@@ -83,7 +83,7 @@ jobs:
           sudo -E echo "zip file"
           sudo -E zip -r /900/zerofo_900.zip ./t9x -x"*/.git*"
           sudo -E echo "upload"
-          if [ `cat t9/.github/packup` -eq 1 ]; then sudo -E BaiduPCS-Py upload /output/*.zip /8266/8266固件包---bin/900/;sudo -E BaiduPCS-Py sync /900 /8266/网站_离线包/900/; else echo "此commit 不打包"; fi;
+          if [ `cat t9x/.github/packup` -eq 1 ]; then sudo -E BaiduPCS-Py upload /output/*.zip /8266/8266固件包---bin/900/;sudo -E BaiduPCS-Py sync /900 /8266/网站_离线包/900/; else echo "此commit 不打包"; fi;
           
       - name: upload binfile
         uses: actions/upload-artifact@v2
