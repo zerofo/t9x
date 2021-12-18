@@ -16,6 +16,7 @@ CACHE MANIFEST
 ./pl/permanent-uart.bin
 ./pl/fan-threshold.bin
 ./pl/ftp.bin
+./pl/miraloader.bin
 ./pl/exit-idu.bin
 ./pl/kernel-dumper.bin
 ./pl/todex.bin
