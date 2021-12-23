@@ -57,16 +57,19 @@
 </div>
 
 
-<h1>一键⇩折腾</h1>
+<h1 id="titleONE">一键⇩折腾</h1>
 <div id='onekey' style="display:inline-block;">
     <h3 id="oneclick" class="dropbtn diy-btn btn-twinkle" style="padding-top: 4px;" onclick="load_jb();" value='ghen2'>SiSTRo<br>GHen2</h3>
     <div class="dropdown">
     <h2 id="pl_switch" class="diy-drop btn-twinkle">▶</h2>
     <div class="dropdown-content diy-dropdown-content">
-        <h3 class='link pllink' onclick="change_oneclick('oneclick','SiSTRo<br>GHen2', 'ghen2');">SiSTRo<br>GHen2</h3>
+        <h3 class='link pllink' onclick="change_oneclick('oneclick','SiSTRo<br>GHen2b2', 'ghen2');">SiSTRo<br>GHen2b2</h3>
         <h3 class='link pllink' onclick="change_oneclick('oneclick','MiraLoader<br>(9021)', 'miraLoader');">MiraLoader<br>(9021)</h3>
     </div>
     </div>
+</div>
+<div style="display:block;width: 20%; padding: 20px;">
+    <h3 id='orbis' class='pllink' onclick="load_script('Orbis-Toolbox');" style="background-color: purple;display: none;">Orbis 工具箱<br>(用了无法待机, 没事别点)</h3>
 </div>
 <div id='ing' class='processing' style="visibility:hidden"></div>
     <h2 id="msgs" style="min-height:50px;font-size: 36px;" ></h2>
@@ -82,10 +85,10 @@ leeful...
 </div>
 <div style="width: 70%;">
     
-<hr>问题反馈 emptytaboo@gmail.com 或者 91联系我, 可加QQ(私下邮箱或者91 咨要) v1.3.0
+<hr>问题反馈 emptytaboo@gmail.com 或者 91联系我, 可加QQ(私下邮箱或者91 咨要) v1.3.0-xy
 </div>
 <script>
-var IdMap = ["SiSTRo<br>GHen2","ghen2"];
+var IdMap = ["SiSTRo<br>GHen2b2","ghen2"];
 var Name=localStorage.getItem("oneclickName");
 var Value=localStorage.getItem("oneclickVAL");
 if (Name==null||Value==null){Name=IdMap[0]; Value=IdMap[1];}
@@ -96,6 +99,15 @@ document.getElementById("oneclick").value=Value;
 document.getElementById('oneclick').style.display='block';
 document.getElementById('pl_switch').style.display='block';
 
+jb_done=sessionStorage.getItem('jb_done');
+if (jb_done == '1') 
+{
+    window.orbis.style.display='block';
+    window.titleONE.style.display='none';
+    document.getElementById('oneclick').style.display='none';
+    document.getElementById('pl_switch').style.display='none';
+}
+    
 </script>
 </body>
 </html>

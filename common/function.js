@@ -3,8 +3,8 @@ async function load_script(name){
     
 	window.msgs.innerHTML="正在 注入"+name;
 
+    await sleep(1500);
 	await run_PL(name);
-	await sleep(1000);
 	poc();
 };
 async function load_jb(){
@@ -12,8 +12,8 @@ async function load_jb(){
 	window.msgs.innerHTML="正在执行 漏洞利用";
 
     // window.location.href="./pl.html#pl="+pl_ver;
+    await sleep(1500);
 	await run_PL(pl_ver);
-	await sleep(1000);
 	poc();
 
 };

