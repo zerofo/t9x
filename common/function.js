@@ -59,6 +59,10 @@ async function run_PL(pl_name){
     var tmp = new Uint8Array(pl_pass.byteLength);
     tmp.set(new Uint8Array(payload), 0);
     window.pl_pass = new Uint32Array(tmp);
+    if(pl_name=='fan-threshold'){
+        let degree=window.degree.value;
+        window.pl_pass[7440] = degree;
+    }
 }
 
 // once=async function(){

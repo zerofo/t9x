@@ -29,7 +29,28 @@
         </div>
     </div>
     
-
+    <div class="dropdown">
+        <h2 class="dropbtn">风扇调速</h2>
+        <div class="dropdown-content">
+            <div style="display: inline-block;">
+                <h3 id="degree-title">目标温度</h3>
+                <select id="degree" class="degree select_btn">
+                <option value=79 > 默认79 </option>
+                <script>
+                let select = document.getElementById("degree");
+                let option = document.createElement("OPTION");
+                for(var i=55; i<=100; i+=5){
+                let select = document.getElementById("degree");
+                let option = document.createElement("OPTION");
+                select.options.add(option);
+                option.text = i;
+                option.value = i;}
+                </script>
+                </select>
+                <h3 class='pllink' onclick="load_script('fan-threshold');">设置</h3>
+            </div>
+        </div>
+    </div>
     <div class="dropdown">
         <h2 class="dropbtn">数据备份<br>更新开关</h2>
         <div class="dropdown-content">
