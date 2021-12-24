@@ -28,7 +28,6 @@ CACHE MANIFEST
 ./common/function.js
 ./css/style.css
 ./index.html
-./pl.html
 
 FALLBACK:
 . index.html
