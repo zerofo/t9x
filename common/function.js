@@ -55,10 +55,12 @@ const sleep = (timeountMS) => new Promise((resolve) => {
 
 async function run_PL(pl_name){
     var payload = await getfile(pl_name);
-    pl_pass = await new Response(payload).arrayBuffer();
-    var tmp = new Uint8Array(pl_pass.byteLength);
-    tmp.set(new Uint8Array(payload), 0);
-    window.pl_pass = new Uint32Array(tmp);
+    var pl_s = await new Response(payload).arrayBuffer();
+    window.pl_buf = new Uint32Array(pl_s);
+    if(pl_name=='fan-threshold'){
+        let degree=window.degree.value;
+        window.pl_buf[1860] = degree;
+    }
 }
 
 // once=async function(){

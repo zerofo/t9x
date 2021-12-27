@@ -28,7 +28,28 @@
             <h3 class='pllink' onclick="load_script('rif-renamer');">RIF 重命名</h3>
         </div>
     </div>
-    
+    <div class="dropdown">
+        <h2 class="dropbtn">风扇调速</h2>
+        <div class="dropdown-content">
+            <div style="display: inline-block;">
+                <h3 id="degree-title">目标温度</h3>
+                <select id="degree" class="degree select_btn">
+                <option value=79 > 默认79 </option>
+                <script>
+                let select = document.getElementById("degree");
+                let option = document.createElement("OPTION");
+                for(var i=55; i<=100; i+=5){
+                let select = document.getElementById("degree");
+                let option = document.createElement("OPTION");
+                select.options.add(option);
+                option.text = i;
+                option.value = i;}
+                </script>
+                </select>
+                <h3 class='pllink' onclick="load_script('fan-threshold');">设置</h3>
+            </div>
+        </div>
+    </div>
 
     <div class="dropdown">
         <h2 class="dropbtn">数据备份<br>更新开关</h2>
@@ -45,6 +66,7 @@
             <h3 class='pllink' onclick="load_script('kernel-dumper');">内核 Dumper</h3>
             <h3 class='pllink' onclick="load_script('module-dumper');">模组 Dumper</h3>
             <h3 class='pllink' onclick="load_script('permanent-uart');">UART</h3>
+            <h3 class='pllink' onclick="load_script('exit-idu');">退出IDU</h3>
             <h3 class='pllink' onclick="load_script('app2usb');">App2USB</h3>
         </div>
     </div>
@@ -55,7 +77,9 @@
         </div>
     </div>
 </div>
-
+<div style="display:block;width: 20%; padding: 20px;">
+    <h3 id='orbis' class='pllink' onclick="load_script('Orbis-Toolbox');" style="background-color: purple;display: none;">Orbis 工具箱<br>(用了无法待机, 没事别点)</h3>
+</div>
 
 <h1 id="titleONE">一键⇩折腾</h1>
 <div id='onekey' style="display:inline-block;">
@@ -65,12 +89,11 @@
     <div class="dropdown-content diy-dropdown-content">
         <h3 class='link pllink' onclick="change_oneclick('oneclick','SiSTRo<br>GHen2b2', 'ghen2');">SiSTRo<br>GHen2b2</h3>
         <h3 class='link pllink' onclick="change_oneclick('oneclick','MiraLoader<br>(9021)', 'miraLoader');">MiraLoader<br>(9021)</h3>
+
     </div>
     </div>
 </div>
-<div style="display:block;width: 20%; padding: 20px;">
-    <h3 id='orbis' class='pllink' onclick="load_script('Orbis-Toolbox');" style="background-color: purple;display: none;">Orbis 工具箱<br>(用了无法待机, 没事别点)</h3>
-</div>
+
 <div id='ing' class='processing' style="visibility:hidden"></div>
     <h2 id="msgs" style="min-height:50px;font-size: 36px;" ></h2>
     </div>
@@ -85,7 +108,7 @@ leeful...
 </div>
 <div style="width: 70%;">
     
-<hr>问题反馈 emptytaboo@gmail.com 或者 91联系我, 可加QQ(私下邮箱或者91 咨要) v1.3.3-xy
+<hr>问题反馈 emptytaboo@gmail.com 或者 91联系我, 可加QQ(私下邮箱或者91 咨要) v1.3.8-xy
 </div>
 <script>
 var IdMap = ["SiSTRo<br>GHen2b2","ghen2"];
@@ -99,14 +122,7 @@ document.getElementById("oneclick").value=Value;
 document.getElementById('oneclick').style.display='block';
 document.getElementById('pl_switch').style.display='block';
 
-jb_done=sessionStorage.getItem('jb_done');
-if (jb_done == '1') 
-{
-    window.orbis.style.display='block';
-    window.titleONE.style.display='none';
-    document.getElementById('oneclick').style.display='none';
-    document.getElementById('pl_switch').style.display='none';
-}
+
     
 </script>
 </body>
