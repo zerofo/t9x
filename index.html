@@ -121,7 +121,14 @@ document.getElementById("oneclick").value=Value;
 
 document.getElementById('oneclick').style.display='block';
 document.getElementById('pl_switch').style.display='block';
-
+jb_done=sessionStorage.getItem('jb_done');
+if (jb_done == '1') 
+{
+    window.orbis.style.display='block';
+    window.titleONE.style.display='none';
+    document.getElementById('oneclick').style.display='none';
+    document.getElementById('pl_switch').style.display='none';
+}
 
     
 </script>
