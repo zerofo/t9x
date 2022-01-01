@@ -9,7 +9,7 @@ async function load_script(name){
 };
 async function load_jb(){
     pl_ver=document.getElementById("oneclick").value;
-	window.msgs.innerHTML="正在执行 漏洞利用.<br>成功后 必定内存不足,请无视.";
+	window.msgs.innerHTML="正在执行 漏洞利用.<br>成功后 如提示内存不足,请无视.";
 
     // window.location.href="./pl.html#pl="+pl_ver;
     await sleep(1500);
