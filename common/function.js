@@ -9,7 +9,7 @@ async function load_script(name){
 };
 async function load_jb(){
     pl_ver=document.getElementById("oneclick").value;
-	window.msgs.innerHTML="正在执行 漏洞利用";
+	window.msgs.innerHTML="正在执行 漏洞利用.<br>成功后 必定内存不足,请无视.";
 
     // window.location.href="./pl.html#pl="+pl_ver;
     await sleep(1500);
@@ -36,18 +36,7 @@ async function getfile(path) {
     }
     return ''
 }
-// function getHashParams()
-// {
-//     var ans = {};
-//     var p = document.location.hash.substr(1).split("&");
-//     for(var i = 0; i < p.length; i++)
-//     {
-//         var kv = p[i].split('=');
-//         var k = kv.shift();
-//         ans[k] = decodeURIComponent(kv.join('='));
-//     }
-//     return ans;
-// }
+
 
 const sleep = (timeountMS) => new Promise((resolve) => {
     setTimeout(resolve, timeountMS);
@@ -63,7 +52,3 @@ async function run_PL(pl_name){
     }
 }
 
-// once=async function(){
-// await sleep(1000);
-// poc();
-// }
