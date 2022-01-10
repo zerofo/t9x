@@ -82,6 +82,9 @@ width:40px;
 height:110px;
 line-height:110px;
 }
+#onekey{
+	margin-top: 20px;
+}
 #oneclick{
 /*display: none;*/
 margin: 0px;

@@ -5,6 +5,7 @@ async function load_script(name){
 
     await sleep(1500);
 	await run_PL(name);
+    jb=1;
 	poc();
 };
 async function load_jb(){
@@ -14,6 +15,7 @@ async function load_jb(){
     // window.location.href="./pl.html#pl="+pl_ver;
     await sleep(1500);
 	await run_PL(pl_ver);
+    jb=0;
 	poc();
 
 };
