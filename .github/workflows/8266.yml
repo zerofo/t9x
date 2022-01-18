@@ -2,7 +2,7 @@ name: upload
 
 on:
   push:
-    branches: [ fixer2 ]
+    branches: [ t9z ]
 
 jobs:
   build:
@@ -14,7 +14,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          ref: fixer2
+          ref: t9z
      # - name: Sync to Gitee
      #   uses: wearerequired/git-mirror-action@master
      #   env:
@@ -66,7 +66,7 @@ jobs:
         run: |
           cd ../
           sudo -E git clone https://github.com/zerofo/docker-8266-builder
-          sudo -E sed -i "s/ps4-zerofo/ps4-zerofo---t9xy-900(实验)----github自动上传版本---底包---v1.5.1xy---/g" ./docker-8266-builder/config.txt
+          sudo -E sed -i "s/ps4-zerofo/ps4-zerofo---t9z-900(实验)----github自动上传版本---底包---v1.6.1xy---/g" ./docker-8266-builder/config.txt
           sudo -E cp ./docker-8266-builder/config.txt /config.txt
           sudo -E sed -i "s/compress\=y/compress\=n/g" /config.txt
           sudo -E sed -i "s/#blockList/blockList/g" /config.txt
@@ -74,6 +74,7 @@ jobs:
           sudo -E rm ./t9x/t9x.git -rf
           sudo -E cp ./t9x /mk8266 -rf
           sudo -E ls /mk8266
+          sudo -E sed -i "s/网页版: 插入U盘.  (8266免插拔 请无视\!\!\!)//g" /mk8266/common/kexploit.js
           sudo -E rm /mk8266/README.md -rf
           sudo -E rm /mk8266/CNAME -rf
           sudo -E cp ./docker-8266-builder/Ps4-wifi-http_async /Ps4-wifi-http -rf
