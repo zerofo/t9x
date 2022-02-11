@@ -66,7 +66,7 @@ jobs:
         run: |
           cd ../
           sudo -E git clone https://github.com/zerofo/docker-8266-builder
-          sudo -E sed -i "s/ps4-zerofo/ps4-zerofo---t9z-900(U盘控制)-此包带密码12345678---github自动上传版本---底包---v1.6.2xy---/g" ./docker-8266-builder/config.txt
+          sudo -E sed -i "s/ps4-zerofo/ps4-zerofo---t9z-900(U盘控制)-此包带密码12345678---github自动上传版本---底包---v1.6.3xy---/g" ./docker-8266-builder/config.txt
           sudo -E cp ./docker-8266-builder/config.txt /config.txt
           sudo -E sed -i "s/compress\=y/compress\=n/g" /config.txt
           sudo -E sed -i "s/#blockList/blockList/g" /config.txt
